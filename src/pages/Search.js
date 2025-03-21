@@ -46,6 +46,11 @@ const Search = () => {
 
   return (
     <div>
+        <div>
+        <button onClick={() => navigate('/') }>Go back/Home</button>
+        <button onClick={() => navigate('/') }>Saved recipes</button>
+        </div>
+        
       <h1>Meal Recipes</h1>
 
       {/* Buttons to select search type */}
