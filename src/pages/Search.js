@@ -1,86 +1,81 @@
 // Search.js
-import React, { useState, useEffect } from 'react';
-import { fetchMeals } from '../service/Api'; // Make sure fetchMeals is modified as per the dynamic search
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Search = () => {
-  const [meals, setMeals] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-  
-  // State for dynamic search
-  const [searchType, setSearchType] = useState(''); // Default to 'search' for name-based search
-  const [searchValue, setSearchValue] = useState(''); // Default value (can be letter, name, etc.)
+  const [searchType, setSearchType] = useState('search'); // Default to 'search' for name-based search
+  const [searchValue, setSearchValue] = useState('A'); // Default value (can be letter, name, etc.)
+  const [options, setOptions] = useState([]);
   
   const navigate = useNavigate(); // Hook to navigate between pages
 
-  // Fetch meals based on the selected search parameters
-  useEffect(() => {
-    async function loadMeals() {
-      setLoading(true);
-      setError('');
-      try {
-        // Fetch meals using the dynamic search type and value
-        const mealList = await fetchMeals(searchType, searchValue);
-        if (!mealList.length) {
-          setError('No meals found for this search.');
-        }
-        setMeals(mealList);
-      } catch (err) {
-        setError('There was an error loading the meals.');
-      }
-      setLoading(false);
-    }
-
-    loadMeals();
-  }, [searchType, searchValue]); // Re-run when searchType or searchValue changes
-
-  const handleSearchTypeChange = (e) => {
-    setSearchType(e.target.value);
-  };
-
-  const handleSearchValueChange = (e) => {
-    setSearchValue(e.target.value);
-  };
-
-  const handleViewMeals = () => {
-    // Passing meals data to the Meals component
-    navigate('/meals', { state: { meals } });
+  // Function to handle search type changes
+  const handleSearchTypeChange = (newType) => {
+    setSearchType(newType);
     
+    // Set random names for different search types
+    switch (newType) {
+      case 'search':
+        setOptions(["Pizza", "Burger", "Pasta", "Tacos", "Sushi"]);
+        break;
+      case 'filter-i':
+        setOptions(["Chicken", "Beef", "Lettuce", "Tomato", "Cheese"]);
+        break;
+      case 'filter-c':
+        setOptions(["Italian", "Chinese", "Mexican", "Indian", "American"]);
+        break;
+      case 'filter-a':
+        setOptions(["Asia", "Europe", "Africa", "America", "Australia"]);
+        break;
+      case 'letter':
+        setOptions(["A", "B", "C", "D", "E"]);
+        break;
+      case 'random':
+        setOptions(["Random Meal 1", "Random Meal 2", "Random Meal 3"]);
+        break;
+      default:
+        setOptions([]);
+    }
   };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  // Function to navigate to Meals.js and pass the selected search parameters
+  const handleSearchSelect = (value) => {
+    setSearchValue(value);
+    navigate('/meals', { state: { searchType, searchValue: value } });
+  };
 
   return (
     <div>
       <h1>Meal Recipes</h1>
 
-      {/* Dropdown for selecting search type */}
-      <select value={searchType} onChange={handleSearchTypeChange}>
-        <option value="search">Search by Name</option>
-        <option value="filter-i">Filter by Ingredient</option>
-        <option value="filter-c">Filter by Category</option>
-        <option value="filter-a">Filter by Area</option>
-        <option value="letter">Search by First Letter</option>
-        <option value="random">Random Meal</option>
-      </select>
+      {/* Buttons to select search type */}
+      <div style={{ marginBottom: '20px' }}>
+        <button onClick={() => handleSearchTypeChange('search')}>Search by Name</button>
+        <button onClick={() => handleSearchTypeChange('filter-i')}>Filter by Ingredient</button>
+        <button onClick={() => handleSearchTypeChange('filter-c')}>Filter by Category</button>
+        <button onClick={() => handleSearchTypeChange('filter-a')}>Filter by Area</button>
+        <button onClick={() => handleSearchTypeChange('letter')}>Search by First Letter</button>
+        <button onClick={() => handleSearchTypeChange('random')}>Random Meal</button>
+      </div>
 
-      {/* Input for entering the search value */}
-      <input
-        type="text"
-        value={searchValue}
-        onChange={handleSearchValueChange}
-        placeholder={`Enter ${searchType === 'search' ? 'meal name' : (searchType === 'letter' ? 'letter' : 'search value')}`}
-      />
+      {/* Display the list of options for the selected search type */}
+      {options.length > 0 && (
+        <div>
+          <h3>Select a {searchType === 'search' ? 'meal name' : 'search value'}</h3>
+          <ul>
+            {options.map((option, index) => (
+              <li key={index}>
+                <button 
+                  onClick={() => handleSearchSelect(option)}
+                >
+                  {option}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
-      {error && <p>{error}</p>}
-
-     
-
-      {/* Button to go to the MealsPage and pass the meals data */}
-      <button onClick={handleViewMeals}>View Meals</button>
     </div>
   );
 };
