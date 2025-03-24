@@ -4,6 +4,7 @@ import Search from './pages/Search';
 import Meals from './pages/Meals';
 import Home from './pages/Home';
 import SavedRecipes from './pages/SavedRecipes';
+import './assets/styles/App.css'
 
 
 const App = () => {
