@@ -22,19 +22,6 @@ const Meals = () => {
     setSavedMeals(saved);
   }, [searchType, searchValue]);
 
-  const handleSaveMeal = (meal) => {
-    const saved = JSON.parse(localStorage.getItem('savedMeals')) || [];
-    const isAlreadySaved = saved.find((m) => m.idMeal === meal.idMeal);
-    if (!isAlreadySaved) {
-      const updated = [...saved, meal];
-      localStorage.setItem('savedMeals', JSON.stringify(updated));
-      setSavedMeals(updated); // Update sidebar list
-      alert(`${meal.strMeal} saved!`);
-    } else {
-      alert(`${meal.strMeal} is already saved.`);
-    }
-  };
-
   return (
     <div style={{ padding: '20px' }}>
       <div>
@@ -58,7 +45,7 @@ const Meals = () => {
                     src={meal.strMealThumb}
                     alt={meal.strMeal}
                     style={{ width: '100%', borderRadius: '10px', cursor: 'pointer' }}
-                    onClick={() => handleSaveMeal(meal)}
+                    onClick={() => navigate('/saved', { state: { meal } })} // Navigate to detailed view
                   />
                   <h4>{meal.strMeal}</h4>
                 </div>

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+const API_URL = "https://www.themealdb.com/api/json/v1/1/";
+
 const Search = () => {
   const [searchType, setSearchType] = useState('search');
   const [searchValue, setSearchValue] = useState('');
@@ -47,11 +49,25 @@ const Search = () => {
 
   const handleSearchSubmit = () => {
     if (searchType === 'random') {
-      navigate('/meals', { state: { searchType: 'random' } });
+      fetchRandomMeal();
     } else if (searchValue) {
       navigate('/meals', { state: { searchType, searchValue } });
     } else {
       alert("Please select or enter a value.");
+    }
+  };
+
+  const fetchRandomMeal = async () => {
+    try {
+      const response = await fetch(`${API_URL}random.php`);
+      const data = await response.json();
+      if (data.meals && data.meals.length > 0) {
+        const randomMeal = data.meals[0];
+        navigate('/saved', { state: { meal: randomMeal } }); // Navigate to SavedRecipes with meal details
+      }
+    } catch (error) {
+      console.error("Error fetching random meal:", error);
+      alert("Failed to fetch a random meal. Try again.");
     }
   };
 
@@ -73,7 +89,6 @@ const Search = () => {
           <option value="filter">Filter by Ingredient</option>
           <option value="category">Filter by Category</option>
           <option value="area">Filter by Area</option>
-          
         </select>
       </div>
 
@@ -117,7 +132,7 @@ const Search = () => {
         </button>
 
         <button
-          onClick={() => navigate('/meals', { state: { searchType: 'random' } })}
+          onClick={fetchRandomMeal} // Now calls the function
           style={{
             padding: '15px 30px',
             fontSize: '18px',
