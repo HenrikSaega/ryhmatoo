@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import jsPDF from 'jspdf';
+
 
 const SavedRecipes = () => {
   const [savedMeals, setSavedMeals] = useState([]);
@@ -28,13 +30,76 @@ const SavedRecipes = () => {
     }
     return ingredients;
   };
+ // Adding function to download pdf with saved recipies
+  const downloadAsPDF = () => {
+    const doc = new jsPDF();
+    let y = 10;
+  
+    savedMeals.forEach((meal, index) => {
+      const ingredients = [];
+      for (let i = 1; i <= 20; i++) {
+        const ing = meal[`strIngredient${i}`];
+        const meas = meal[`strMeasure${i}`];
+        if (ing && ing.trim()) {
+          ingredients.push(`${meas?.trim() || ''} ${ing.trim()}`);
+        }
+      }
+  
+      doc.setFontSize(14);
+      doc.text(`${index + 1}. ${meal.strMeal}`, 10, y);
+      y += 8;
+      doc.setFontSize(11);
+      doc.text(`Category: ${meal.strCategory || ''}   |   Area: ${meal.strArea || ''}`, 10, y);
+      y += 6;
+  
+      doc.setFontSize(10);
+      doc.text('Ingredients:', 10, y);
+      y += 6;
+  
+      ingredients.forEach((line) => {
+        doc.text(`- ${line}`, 12, y);
+        y += 5;
+        if (y > 270) {
+          doc.addPage();
+          y = 10;
+        }
+      });
+  
+      doc.text('Instructions:', 10, y);
+      y += 6;
+  
+      const instructions = doc.splitTextToSize(meal.strInstructions || '', 180);
+      instructions.forEach((line) => {
+        doc.text(line, 12, y);
+        y += 5;
+        if (y > 270) {
+          doc.addPage();
+          y = 10;
+        }
+      });
+  
+      y += 10;
+      if (y > 270) {
+        doc.addPage();
+        y = 10;
+      }
+    });
+  
+    doc.save('saved_recipes.pdf');
+  };
 
   return (
     <div style={{ padding: '20px' }}>
       <div>
         <button onClick={() => navigate('/')}>Go back/Home</button>
         <button onClick={() => navigate('/search')}>Search more</button>
+        {savedMeals.length > 0 && (
+  <button onClick={downloadAsPDF} style={{ marginBottom: '20px' }}>
+    Download Recipes as PDF
+  </button>
+)}
       </div>
+      
 
       <h2>Saved Recipes</h2>
 
