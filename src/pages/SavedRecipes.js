@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import jsPDF from 'jspdf';
+
 
 const SavedRecipes = () => {
   const navigate = useNavigate();
@@ -26,6 +28,69 @@ const SavedRecipes = () => {
     }
   };
 
+  const handleRemoveMeal = (idMeal) => {
+    const updatedMeals = savedMeals.filter((meal) => meal.idMeal !== idMeal);
+    setSavedMeals(updatedMeals);
+    localStorage.setItem('savedMeals', JSON.stringify(updatedMeals));
+  };
+  
+  const downloadAsPDF = () => {
+    const doc = new jsPDF();
+    let y = 10;
+
+    savedMeals.forEach((meal, index) => {
+      const ingredients = [];
+      for (let i = 1; i <= 20; i++) {
+        const ing = meal[`strIngredient${i}`];
+        const meas = meal[`strMeasure${i}`];
+        if (ing && ing.trim()) {
+          ingredients.push(`${meas?.trim() || ''} ${ing.trim()}`);
+        }
+      }
+
+      doc.setFontSize(14);
+      doc.text(`${index + 1}. ${meal.strMeal}`, 10, y);
+      y += 8;
+      doc.setFontSize(11);
+      doc.text(`Category: ${meal.strCategory || ''}   |   Area: ${meal.strArea || ''}`, 10, y);
+      y += 6;
+
+      doc.setFontSize(10);
+      doc.text('Ingredients:', 10, y);
+      y += 6;
+
+      ingredients.forEach((line) => {
+        doc.text(`- ${line}`, 12, y);
+        y += 5;
+        if (y > 270) {
+          doc.addPage();
+          y = 10;
+        }
+      });
+
+      doc.text('Instructions:', 10, y);
+      y += 6;
+
+      const instructions = doc.splitTextToSize(meal.strInstructions || '', 180);
+      instructions.forEach((line) => {
+        doc.text(line, 12, y);
+        y += 5;
+        if (y > 270) {
+          doc.addPage();
+          y = 10;
+        }
+      });
+
+      y += 10;
+      if (y > 270) {
+        doc.addPage();
+        y = 10;
+      }
+    });
+
+    doc.save('saved_recipes.pdf');
+  };
+
   return (
     <div style={{ display: 'flex', padding: '20px', gap: '30px' }}>
       {/* Main Content - Either Show Meal Details or Message */}
@@ -33,6 +98,11 @@ const SavedRecipes = () => {
         <div>
           <button onClick={() => navigate('/')}>Go back/Home</button>
           <button onClick={() => navigate('/search')}>Search more</button>
+          {savedMeals.length > 0 && (
+            <button onClick={downloadAsPDF} style={{ marginBottom: '20px' }}>
+              Download Recipes as PDF
+            </button>
+          )}
         </div>
 
         {meal ? (
@@ -60,18 +130,24 @@ const SavedRecipes = () => {
             <h4>Instructions:</h4>
             <p>{meal.strInstructions}</p>
 
-            <button 
-              onClick={handleSaveMeal} 
+            <button
+              onClick={handleSaveMeal}
               style={{
-                marginTop: '10px', 
-                padding: '10px 20px', 
-                backgroundColor: 'green', 
-                color: 'white', 
-                border: 'none', 
+                marginTop: '10px',
+                padding: '10px 20px',
+                backgroundColor: 'green',
+                color: 'white',
+                border: 'none',
                 borderRadius: '5px'
               }}>
               Save Meal
             </button>
+            <button 
+        onClick={() => handleRemoveMeal(meal.idMeal)}
+        style={{ padding: '5px 10px', backgroundColor: 'red', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}
+      >
+        Remove
+      </button>
           </>
         ) : (
           <h2>Select a saved meal from the list.</h2>
@@ -80,32 +156,32 @@ const SavedRecipes = () => {
 
       {/* Sidebar: Always Show Saved Meals */}
       <div style={{
-        flex: 1, 
-        borderLeft: '2px solid #ccc', 
-        paddingLeft: '20px', 
-        height: '100vh', 
-        overflowY: 'auto', 
-        position: 'sticky', 
+        flex: 1,
+        borderLeft: '2px solid #ccc',
+        paddingLeft: '20px',
+        height: '100vh',
+        overflowY: 'auto',
+        position: 'sticky',
         top: '20px'
       }}>
         <h3>Saved Meals</h3>
         {savedMeals.length === 0 ? (
           <p>No saved meals</p>
         ) : (
-          <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
-            {savedMeals.map((meal) => (
-              <li key={meal.idMeal} style={{ marginBottom: '10px', display: 'flex', alignItems: 'center', cursor: 'pointer' }}
-                  onClick={() => navigate('/saved', { state: { meal } })} // Navigate to show details
-              >
-                <img
-                  src={meal.strMealThumb}
-                  alt={meal.strMeal}
-                  style={{ width: '50px', borderRadius: '5px', marginRight: '10px' }}
-                />
-                <span>{meal.strMeal}</span>
-              </li>
-            ))}
-          </ul>
+       <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
+  {savedMeals.map((meal) => (
+    <li key={meal.idMeal} style={{ marginBottom: '10px', display: 'flex', alignItems: 'center' }}>
+      <img
+        src={meal.strMealThumb}
+        alt={meal.strMeal}
+        style={{ width: '50px', borderRadius: '5px', marginRight: '10px', cursor: 'pointer' }}
+        onClick={() => navigate('/saved', { state: { meal } })}
+      />
+      <span style={{ flexGrow: 1 }}>{meal.strMeal}</span>
+  
+    </li>
+  ))}
+</ul>
         )}
       </div>
     </div>
