@@ -1,73 +1,62 @@
-// Search.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Search = () => {
-  const [searchType, setSearchType] = useState('search'); // Default to 'search' for name-based search
-  const [searchValue, setSearchValue] = useState('A'); // Default value (can be letter, name, etc.)
+  const [searchType, setSearchType] = useState('search');
+  const [searchValue, setSearchValue] = useState('');
   const [options, setOptions] = useState([]);
-  const [showInput,setShowInput] = useState(false)
+  const [showInput, setShowInput] = useState(true);
 
-  const navigate = useNavigate(); // Hook to navigate between pages
-  
-  // Function to handle search type changes
-  const handleSearchTypeChange = (newType) => {
+  const navigate = useNavigate();
+
+  const handleSearchTypeChange = (e) => {
+    const newType = e.target.value;
     setSearchType(newType);
+    setSearchValue('');
+    setOptions([]);
 
-    // Set random names for different search types
     switch (newType) {
-      case 'search': // Search by meal name
-        setSearchType('search');
-        setShowInput(true);  // Show input field
-        setOptions([]);      // No predefined options
+      case 'search':
+      case 'letter':
+        setShowInput(true);
         break;
-      case 'filter-i':// Filter ingridient
-        setSearchType('filter')
+      case 'filter':
         setShowInput(false);
         setOptions(["Chicken", "Beef", "Lettuce", "Tomato", "Cheese"]);
         break;
-      case 'filter-c': // Seatch by catogry
-        setSearchType('category');
+      case 'category':
         setShowInput(false);
         setOptions([
           "Beef", "Chicken", "Dessert", "Lamb", "Miscellaneous",
           "Pasta", "Pork", "Seafood", "Side", "Starter", "Vegan", "Vegetarian", "Breakfast", "Goat"
         ]);
         break;
-        case 'filter-a':// Search by area
-          setSearchType('area');
-          setShowInput(false);
-          setOptions([
-            "American", "British", "Canadian", "Chinese", "Croatian", "Dutch", "Egyptian", "Filipino",
-            "French", "Greek", "Indian", "Irish", "Italian", "Jamaican", "Japanese", "Kenyan",
-            "Malaysian", "Mexican", "Moroccan", "Polish", "Portuguese", "Russian", "Spanish",
-            "Thai", "Tunisian", "Turkish", "Ukrainian", "Uruguayan", "Vietnamese"
-          ]);
-          break;
-      case 'letter':
-        setSearchType('letter');
-        setShowInput(true);  // Show input field
-        setOptions([]);      // No predefined options
+      case 'area':
+        setShowInput(false);
+        setOptions([
+          "American", "British", "Canadian", "Chinese", "Croatian", "Dutch", "Egyptian", "Filipino",
+          "French", "Greek", "Indian", "Irish", "Italian", "Jamaican", "Japanese", "Kenyan",
+          "Malaysian", "Mexican", "Moroccan", "Polish", "Portuguese", "Russian", "Spanish",
+          "Thai", "Tunisian", "Turkish", "Ukrainian", "Uruguayan", "Vietnamese"
+        ]);
         break;
-        case 'random':
-          setSearchType('random');
-          setShowInput(false);
-          setOptions([]);
-          navigate('/meals', { state: { searchType: 'random' } }); // Trigger right away
-          break;
       default:
-        setOptions([]);
+        break;
     }
   };
 
-  // Function to navigate to Meals.js and pass the selected search parameters
-  const handleSearchSelect = (value) => {
-    setSearchValue(value);
-    navigate('/meals', { state: { searchType, searchValue: value } });
+  const handleSearchSubmit = () => {
+    if (searchType === 'random') {
+      navigate('/meals', { state: { searchType: 'random' } });
+    } else if (searchValue) {
+      navigate('/meals', { state: { searchType, searchValue } });
+    } else {
+      alert("Please select or enter a value.");
+    }
   };
 
   return (
-    <div>
+    <div style={{ padding: '20px' }}>
       <div>
         <button onClick={() => navigate('/')}>Go back/Home</button>
         <button onClick={() => navigate('/saved')}>Saved recipes</button>
@@ -75,48 +64,72 @@ const Search = () => {
 
       <h1>Meal Recipes</h1>
 
-      {/* Buttons to select search type */}
-      <div style={{ marginBottom: '20px' }}>
-        <button onClick={() => handleSearchTypeChange('search')}>Search by Name</button>
-        <button onClick={() => handleSearchTypeChange('filter-i')}>Filter by Ingredient</button>
-        <button onClick={() => handleSearchTypeChange('filter-c')}>Filter by Category</button>
-        <button onClick={() => handleSearchTypeChange('filter-a')}>Filter by Area</button>
-        <button onClick={() => handleSearchTypeChange('letter')}>Search by First Letter</button>
-        <button onClick={() => handleSearchTypeChange('random')}>Random Meal</button>
+      {/* Select search type */}
+      <div style={{ margin: '20px 0' }}>
+        <label><strong>Search Type: </strong></label>
+        <select value={searchType} onChange={handleSearchTypeChange}>
+          <option value="search">Search by Name</option>
+          <option value="letter">Search by First Letter</option>
+          <option value="filter">Filter by Ingredient</option>
+          <option value="category">Filter by Category</option>
+          <option value="area">Filter by Area</option>
+          
+        </select>
       </div>
 
-      {/* Display the list of options for the selected search type */}
-      {showInput ? (
-  <div>
-    <h3>Type your search</h3>
-    <input
-      type="text"
-      value={searchValue}
-      onChange={(e) => setSearchValue(e.target.value)}
-      placeholder="Enter search term..."
-    />
-    <button onClick={() => handleSearchSelect(searchValue)}>Search</button>
-  </div>
-) : (
-  options.length > 0 && (
-    <div>
-      <h3>Select a {searchType} option</h3>
-      <ul>
-        {options.map((option, index) => (
-          <li key={index}>
-            <button 
-              onClick={() => handleSearchSelect(option)}
-            >
-              {option}
-            </button>
-          </li>
-        ))}
-      </ul>
-    </div>
-  )
-)}
+      {/* Input or option list */}
+      <div style={{ marginBottom: '20px' }}>
+        {showInput ? (
+          <input
+            type="text"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            placeholder="Type your search..."
+          />
+        ) : (
+          <select
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+          >
+            <option value="">-- Select an option --</option>
+            {options.map((option, idx) => (
+              <option key={idx} value={option}>{option}</option>
+            ))}
+          </select>
+        )}
+      </div>
 
+      {/* Search & Random Buttons */}
+      <div style={{ marginTop: '30px' }}>
+        <button
+          onClick={handleSearchSubmit}
+          style={{
+            padding: '15px 30px',
+            fontSize: '18px',
+            marginRight: '20px',
+            backgroundColor: '#28a745',
+            color: 'white',
+            border: 'none',
+            borderRadius: '5px'
+          }}
+        >
+          Search
+        </button>
 
+        <button
+          onClick={() => navigate('/meals', { state: { searchType: 'random' } })}
+          style={{
+            padding: '15px 30px',
+            fontSize: '18px',
+            backgroundColor: '#007bff',
+            color: 'white',
+            border: 'none',
+            borderRadius: '5px'
+          }}
+        >
+          Random Meal
+        </button>
+      </div>
     </div>
   );
 };
