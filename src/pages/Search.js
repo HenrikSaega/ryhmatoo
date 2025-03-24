@@ -6,33 +6,55 @@ const Search = () => {
   const [searchType, setSearchType] = useState('search'); // Default to 'search' for name-based search
   const [searchValue, setSearchValue] = useState('A'); // Default value (can be letter, name, etc.)
   const [options, setOptions] = useState([]);
-  
-  const navigate = useNavigate(); // Hook to navigate between pages
+  const [showInput,setShowInput] = useState(false)
 
+  const navigate = useNavigate(); // Hook to navigate between pages
+  
   // Function to handle search type changes
   const handleSearchTypeChange = (newType) => {
     setSearchType(newType);
-    
+
     // Set random names for different search types
     switch (newType) {
-      case 'search':
-        setOptions(["Pizza", "Burger", "Pasta", "Tacos", "Sushi"]);
+      case 'search': // Search by meal name
+        setSearchType('search');
+        setShowInput(true);  // Show input field
+        setOptions([]);      // No predefined options
         break;
-      case 'filter-i':
+      case 'filter-i':// Filter ingridient
+        setSearchType('filter')
+        setShowInput(false);
         setOptions(["Chicken", "Beef", "Lettuce", "Tomato", "Cheese"]);
         break;
-      case 'filter-c':
-        setOptions(["Italian", "Chinese", "Mexican", "Indian", "American"]);
+      case 'filter-c': // Seatch by catogry
+        setSearchType('category');
+        setShowInput(false);
+        setOptions([
+          "Beef", "Chicken", "Dessert", "Lamb", "Miscellaneous",
+          "Pasta", "Pork", "Seafood", "Side", "Starter", "Vegan", "Vegetarian", "Breakfast", "Goat"
+        ]);
         break;
-      case 'filter-a':
-        setOptions(["Asia", "Europe", "Africa", "America", "Australia"]);
-        break;
+        case 'filter-a':// Search by area
+          setSearchType('area');
+          setShowInput(false);
+          setOptions([
+            "American", "British", "Canadian", "Chinese", "Croatian", "Dutch", "Egyptian", "Filipino",
+            "French", "Greek", "Indian", "Irish", "Italian", "Jamaican", "Japanese", "Kenyan",
+            "Malaysian", "Mexican", "Moroccan", "Polish", "Portuguese", "Russian", "Spanish",
+            "Thai", "Tunisian", "Turkish", "Ukrainian", "Uruguayan", "Vietnamese"
+          ]);
+          break;
       case 'letter':
-        setOptions(["A", "B", "C", "D", "E"]);
+        setSearchType('letter');
+        setShowInput(true);  // Show input field
+        setOptions([]);      // No predefined options
         break;
-      case 'random':
-        setOptions(["Random Meal 1", "Random Meal 2", "Random Meal 3"]);
-        break;
+        case 'random':
+          setSearchType('random');
+          setShowInput(false);
+          setOptions([]);
+          navigate('/meals', { state: { searchType: 'random' } }); // Trigger right away
+          break;
       default:
         setOptions([]);
     }
@@ -46,11 +68,11 @@ const Search = () => {
 
   return (
     <div>
-        <div>
-        <button onClick={() => navigate('/') }>Go back/Home</button>
-        <button onClick={() => navigate('/') }>Saved recipes</button>
-        </div>
-        
+      <div>
+        <button onClick={() => navigate('/')}>Go back/Home</button>
+        <button onClick={() => navigate('/saved')}>Saved recipes</button>
+      </div>
+
       <h1>Meal Recipes</h1>
 
       {/* Buttons to select search type */}
@@ -64,22 +86,36 @@ const Search = () => {
       </div>
 
       {/* Display the list of options for the selected search type */}
-      {options.length > 0 && (
-        <div>
-          <h3>Select a {searchType === 'search' ? 'meal name' : 'search value'}</h3>
-          <ul>
-            {options.map((option, index) => (
-              <li key={index}>
-                <button 
-                  onClick={() => handleSearchSelect(option)}
-                >
-                  {option}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      {showInput ? (
+  <div>
+    <h3>Type your search</h3>
+    <input
+      type="text"
+      value={searchValue}
+      onChange={(e) => setSearchValue(e.target.value)}
+      placeholder="Enter search term..."
+    />
+    <button onClick={() => handleSearchSelect(searchValue)}>Search</button>
+  </div>
+) : (
+  options.length > 0 && (
+    <div>
+      <h3>Select a {searchType} option</h3>
+      <ul>
+        {options.map((option, index) => (
+          <li key={index}>
+            <button 
+              onClick={() => handleSearchSelect(option)}
+            >
+              {option}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+)}
+
 
     </div>
   );

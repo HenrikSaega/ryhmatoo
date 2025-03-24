@@ -3,45 +3,51 @@ const API_URL = "https://www.themealdb.com/api/json/v1/1/";
 
 export const fetchMeals = async (searchType, searchValue) => {
   try {
-    // Dynamically build the API URL based on search type
     let apiUrl = "";
 
-    // Define different types of search based on the provided searchType
     switch (searchType) {
-      case 'search':  // Search by name
+      case 'search':
         apiUrl = `${API_URL}search.php?s=${searchValue}`;
         break;
-      case 'filter': // Filter by ingredient
-        apiUrl = `${API_URL}filter.php?i=${searchValue}`;
-        break;
-      case 'category': // Filter by category
-        apiUrl = `${API_URL}filter.php?c=${searchValue}`;
-        break;
-      case 'area': // Filter by area (region)
-        apiUrl = `${API_URL}filter.php?a=${searchValue}`;
-        break;
-      case 'letter': // Search by first letter
+      case 'letter':
         apiUrl = `${API_URL}search.php?f=${searchValue}`;
         break;
-      case 'random': // Random meal
+      case 'random':
         apiUrl = `${API_URL}random.php`;
+        break;
+      case 'filter': // ingredient
+        apiUrl = `${API_URL}filter.php?i=${searchValue}`;
+        break;
+      case 'category':
+        apiUrl = `${API_URL}filter.php?c=${searchValue}`;
+        break;
+      case 'area':
+        apiUrl = `${API_URL}filter.php?a=${searchValue}`;
         break;
       default:
         throw new Error('Invalid search type');
     }
 
-    // Fetch data from the API
     const response = await fetch(apiUrl);
     const data = await response.json();
 
-    if (data.meals) {
-      return data.meals;
-    } else {
-      return []; // No meals found
+    // For filter, category, area — fetch full details for each meal
+    if (['filter', 'category', 'area'].includes(searchType) && data.meals) {
+      const fullMeals = await Promise.all(
+        data.meals.map(async (meal) => {
+          const res = await fetch(`${API_URL}lookup.php?i=${meal.idMeal}`);
+          const detailData = await res.json();
+          return detailData.meals[0];
+        })
+      );
+      return fullMeals;
     }
+
+    return data.meals || [];
   } catch (error) {
     console.error("Error fetching meals:", error);
     return [];
   }
 };
+
 
