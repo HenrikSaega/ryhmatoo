@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import jsPDF from 'jspdf';
-
 import '../assets/styles/main.css'
 
 const SavedRecipes = () => {
@@ -34,7 +33,7 @@ const SavedRecipes = () => {
     setSavedMeals(updatedMeals);
     localStorage.setItem('savedMeals', JSON.stringify(updatedMeals));
   };
-  
+
   const downloadAsPDF = () => {
     const doc = new jsPDF();
     let y = 10;
@@ -169,59 +168,6 @@ const SavedRecipes = () => {
             </ul>
           )}
         </div>
-            <button
-              onClick={handleSaveMeal}
-              style={{
-                marginTop: '10px',
-                padding: '10px 20px',
-                backgroundColor: 'green',
-                color: 'white',
-                border: 'none',
-                borderRadius: '5px'
-              }}>
-              Save Meal
-            </button>
-            <button 
-        onClick={() => handleRemoveMeal(meal.idMeal)}
-        style={{ padding: '5px 10px', backgroundColor: 'red', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}
-      >
-        Remove
-      </button>
-          </>
-        ) : (
-          <h2>Select a saved meal from the list.</h2>
-        )}
-      </div>
-
-      {/* Sidebar: Always Show Saved Meals */}
-      <div style={{
-        flex: 1,
-        borderLeft: '2px solid #ccc',
-        paddingLeft: '20px',
-        height: '100vh',
-        overflowY: 'auto',
-        position: 'sticky',
-        top: '20px'
-      }}>
-        <h3>Saved Meals</h3>
-        {savedMeals.length === 0 ? (
-          <p>No saved meals</p>
-        ) : (
-       <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
-  {savedMeals.map((meal) => (
-    <li key={meal.idMeal} style={{ marginBottom: '10px', display: 'flex', alignItems: 'center' }}>
-      <img
-        src={meal.strMealThumb}
-        alt={meal.strMeal}
-        style={{ width: '50px', borderRadius: '5px', marginRight: '10px', cursor: 'pointer' }}
-        onClick={() => navigate('/saved', { state: { meal } })}
-      />
-      <span style={{ flexGrow: 1 }}>{meal.strMeal}</span>
-  
-    </li>
-  ))}
-</ul>
-        )}
       </div>
     </div>
   );
