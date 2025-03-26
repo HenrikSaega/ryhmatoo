@@ -1,25 +1,56 @@
 .main {
-    display: flex;
-    padding: 20px;
-    gap: 30px;
+    padding: 50px;
     background: linear-gradient(rgba(0, 0, 0, 0.4)), url(../img/background.png) no-repeat center center fixed;
     background-size: cover;
+    min-height: 100vh;
+    box-sizing: border-box;
 }
 
-div.saved-meals {
-    flex: 1;
-    border: 2px solid black; 
-    padding-left: 100px;
+.row-container {
+    grid-template-columns: 75% 25%;
+    display: grid;
+}
+
+.meal-view{
+    padding:20px;
     background: linear-gradient(rgba(0, 0, 0, 0.7));
-    height: 100vh;
+    border: 2px solid black;
+    padding: 20px;
+}
+
+.meal-img{
+    width: 300px;
+    border-radius:10px;
+}
+
+.saved-meals {
+    align-items: center;
+    border: 2px solid black; 
+    background: linear-gradient(rgba(0, 0, 0, 0.7));
+    width:100%;
+    border-radius: 10px;
+    padding: 20px;
     overflow-y: auto; 
     position: sticky;
     top: 20px;
     color:#fff8d6;
 }
 
-div.saved-meals h3{
+.saved-meals h3{
     color: #f7e1ae;
+}
+
+.btn-container .btn {
+    color: #e8d8c4;
+    background-color: #6d2932;
+    font-size: large;
+    padding: 10px 20px;
+    border: none;
+}
+
+.btn-container .btn:hover{
+    color: #c7b7a3;
+    background-color:#561c24;
 }
 
 .list{
