@@ -30,70 +30,80 @@ const SavedRecipes = () => {
   return (
     <div className='main'>
       <div className='btn-container'>
-        <button className='btn' onClick={() => navigate('/')}>Go back/Home</button>
-        <button className='btn' onClick={() => navigate('/search')}>Search more</button>
+        <button className='btn' onClick={() => navigate('/')}>🏠 Home</button>
+        <button className='btn mx-3' onClick={() => navigate('/search')}>🔍 Search more</button>
       </div>
       {/* Main Content - Either Show Meal Details or Message */}
       <div className='row-container'>
         <div className='meal-view card col-md-11'>
           {meal ? (
             <>
-              <h2>{meal.strMeal}</h2>
+              <div className='row'>
+                <div className='col-9'>
+                  <h2>{meal.strMeal}</h2>
+                </div>
+                <div className='col-3 text-end'>
+                  <button
+                    onClick={handleSaveMeal}
+                    className='btn'>
+                    💾 Save Meal
+                  </button>
+                </div>
+              </div>
 
-              <img
-                src={meal.strMealThumb}
-                alt={meal.strMeal}
-                className='meal-img'
-              />
 
-              <p><strong>Category:</strong> {meal.strCategory}</p>
-              <p><strong>Area:</strong> {meal.strArea}</p>
+              <div className='row'>
+                <div className='col-6'>
+                  <img
+                    src={meal.strMealThumb}
+                    alt={meal.strMeal}
+                    className='meal-img img-fluid'
+                  />
+                  <p><strong>Category:</strong> {meal.strCategory}</p>
+                  <p><strong>Area:</strong> {meal.strArea}</p>
 
-              <h4>Ingredients:</h4>
-              <ul>
-                {Array.from({ length: 20 }).map((_, i) => {
-                  const ingredient = meal[`strIngredient${i + 1}`];
-                  const measure = meal[`strMeasure${i + 1}`];
-                  return ingredient ? <li key={i}>{measure} {ingredient}</li> : null;
-                })}
-              </ul>
+                </div>
+                <div className='col-6'>
+                  <h4>Ingredients:</h4>
+                  <ul>
+                    {Array.from({ length: 20 }).map((_, i) => {
+                      const ingredient = meal[`strIngredient${i + 1}`];
+                      const measure = meal[`strMeasure${i + 1}`];
+                      return ingredient ? <li key={i}>{measure} {ingredient}</li> : null;
+                    })}
+                  </ul>
+                </div>
+              </div>
 
               <h4>Instructions:</h4>
               <p>{meal.strInstructions}</p>
 
-              <button
-                onClick={handleSaveMeal}
-                className='btn'>
-                Save Meal
-              </button>
             </>
           ) : (
             <h2>Select a saved meal from the list.</h2>
           )}
         </div>
         {/* Sidebar: Always Show Saved Meals */}
-        <div>
-          <div className='card saved-meals col-md-3'>
-            <h3>Saved Meals</h3>
-            {savedMeals.length === 0 ? (
-              <p>No saved meals</p>
-            ) : (
-              <ul className='list'>
-                {savedMeals.map((meal) => (
-                  <li key={meal.idMeal} className='list-items'
-                    onClick={() => navigate('/saved', { state: { meal } })} // Navigate to show details
-                  >
-                    <img
-                      className='list-item'
-                      src={meal.strMealThumb}
-                      alt={meal.strMeal}
-                    />
-                    <span>{meal.strMeal}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
+        <div className='card saved-meals col-md-3'>
+          <h3>Saved Meals</h3>
+          {savedMeals.length === 0 ? (
+            <p>No saved meals</p>
+          ) : (
+            <ul className='list'>
+              {savedMeals.map((meal) => (
+                <li key={meal.idMeal} className='list-items'
+                  onClick={() => navigate('/saved', { state: { meal } })} // Navigate to show details
+                >
+                  <img
+                    className='list-item'
+                    src={meal.strMealThumb}
+                    alt={meal.strMeal}
+                  />
+                  <span>{meal.strMeal}</span>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
     </div>

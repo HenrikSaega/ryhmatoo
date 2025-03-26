@@ -1,5 +1,5 @@
 .main {
-    padding: 50px;
+    padding: 20px;
     background: linear-gradient(rgba(0, 0, 0, 0.4)), url(../img/background.png) no-repeat center center fixed;
     background-size: cover;
     min-height: 100vh;
@@ -9,13 +9,40 @@
 .row-container {
     grid-template-columns: 75% 25%;
     display: grid;
+    box-sizing: border-box;
+    padding-top:20px;
 }
 
-.meal-view{
+.row-container .meal-view{
     padding:20px;
     background: linear-gradient(rgba(0, 0, 0, 0.7));
     border: 2px solid black;
-    padding: 20px;
+    overflow-y: auto;
+    max-height: calc(100vh - 100px);
+    color:#fff8d6;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.meal-view h4, p, li{
+    color:#fff8d6;
+}
+
+.meal-view .btn{
+    color: #211f1f;
+    background-color: #617a55;
+    font-size:x-large;
+    font-weight: 700;
+    padding: 10px 20px;
+    border: none;
+}
+
+.meal-view .btn:hover{
+    background-color: #a4d0a4;
+}
+
+.meal-view h2{
+    color: #f7e1ae;
 }
 
 .meal-img{
@@ -23,17 +50,18 @@
     border-radius:10px;
 }
 
-.saved-meals {
+.row-container .saved-meals {
+    padding:20px;
     align-items: center;
-    border: 2px solid black; 
     background: linear-gradient(rgba(0, 0, 0, 0.7));
+    border: 2px solid black;
     width:100%;
     border-radius: 10px;
-    padding: 20px;
-    overflow-y: auto; 
+    overflow-y: auto;
+    max-height: calc(100vh - 100px);
     position: sticky;
-    top: 20px;
     color:#fff8d6;
+    box-sizing: border-box;
 }
 
 .saved-meals h3{
