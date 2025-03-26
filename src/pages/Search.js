@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../assets/styles/SavedRecipes.css';
 
 const API_URL = "https://www.themealdb.com/api/json/v1/1/";
 
@@ -72,10 +73,10 @@ const Search = () => {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
-      <div>
-        <button onClick={() => navigate('/')}>Go back/Home</button>
-        <button onClick={() => navigate('/saved')}>Saved recipes</button>
+    <div className='main'>
+      <div className='btn-container'>
+        <button className='btn' onClick={() => navigate('/')}>🏠 Home</button>
+        <button className='btn mx-3' onClick={() => navigate('/saved')}>Saved recipes</button>
       </div>
 
       <h1>Meal Recipes</h1>

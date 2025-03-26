@@ -28,6 +28,27 @@
     color:#fff8d6;
 }
 
+.meal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.meal-item {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 10px;
+    transition: transform 0.3s ease;
+}
+
+.meal-item:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
 .meal-view .btn{
     color: #211f1f;
     background-color: #617a55;
