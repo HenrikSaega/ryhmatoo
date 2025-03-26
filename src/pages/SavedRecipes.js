@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import '../assets/styles/SavedRecipes.css'
 
 const SavedRecipes = () => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const SavedRecipes = () => {
   };
 
   return (
-    <div style={{ display: 'flex', padding: '20px', gap: '30px' }}>
+    <div className='main' style={{ display: 'flex', padding: '20px', gap: '30px' }}>
       {/* Main Content - Either Show Meal Details or Message */}
       <div style={{ flex: 3 }}>
         <div>
@@ -60,14 +61,14 @@ const SavedRecipes = () => {
             <h4>Instructions:</h4>
             <p>{meal.strInstructions}</p>
 
-            <button 
-              onClick={handleSaveMeal} 
+            <button
+              onClick={handleSaveMeal}
               style={{
-                marginTop: '10px', 
-                padding: '10px 20px', 
-                backgroundColor: 'green', 
-                color: 'white', 
-                border: 'none', 
+                marginTop: '10px',
+                padding: '10px 20px',
+                backgroundColor: 'green',
+                color: 'white',
+                border: 'none',
                 borderRadius: '5px'
               }}>
               Save Meal
@@ -79,28 +80,20 @@ const SavedRecipes = () => {
       </div>
 
       {/* Sidebar: Always Show Saved Meals */}
-      <div style={{
-        flex: 1, 
-        borderLeft: '2px solid #ccc', 
-        paddingLeft: '20px', 
-        height: '100vh', 
-        overflowY: 'auto', 
-        position: 'sticky', 
-        top: '20px'
-      }}>
+      <div className='card p-2 saved-meals'>
         <h3>Saved Meals</h3>
         {savedMeals.length === 0 ? (
           <p>No saved meals</p>
         ) : (
-          <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
+          <ul className='list'>
             {savedMeals.map((meal) => (
-              <li key={meal.idMeal} style={{ marginBottom: '10px', display: 'flex', alignItems: 'center', cursor: 'pointer' }}
-                  onClick={() => navigate('/saved', { state: { meal } })} // Navigate to show details
+              <li key={meal.idMeal} className='list-items'
+                onClick={() => navigate('/saved', { state: { meal } })} // Navigate to show details
               >
                 <img
+                  className='list-item'
                   src={meal.strMealThumb}
                   alt={meal.strMeal}
-                  style={{ width: '50px', borderRadius: '5px', marginRight: '10px' }}
                 />
                 <span>{meal.strMeal}</span>
               </li>
