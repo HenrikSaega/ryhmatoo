@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <div className="home">
       <div className="title-container">
-        <h1 className="title col-md-12">GET-Recipe 🍽️</h1>
+        <h1 className="title col-md-12">GET-Recipe</h1>
       </div>
       <div className="row justify-content-center">
         <div className="buttons-container col-12 col-md-8">

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { fetchMeals } from '../service/Api';
-import '../assets/styles/SavedRecipes.css'
+import '../assets/styles/main.css'
 
 const Meals = () => {
   const navigate = useNavigate();
@@ -18,7 +18,6 @@ const Meals = () => {
       }
     };
     getMeals();
-
     const saved = JSON.parse(localStorage.getItem('savedMeals')) || [];
     setSavedMeals(saved);
   }, [searchType, searchValue]);
@@ -28,7 +27,7 @@ const Meals = () => {
       <div className='btn-container'>
         <button className='btn' onClick={() => navigate('/')}>🏠 Home</button>
         <button className='btn mx-3' onClick={() => navigate('/search')}>🔍 Search Meals</button>
-        <button className='btn' onClick={() => navigate('/saved')}>💾 Saved Meals</button>
+        {/* <button className='btn' onClick={() => navigate('/saved')}>💾 Saved Meals</button> */}
       </div>
 
 

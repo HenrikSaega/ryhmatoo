@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../assets/styles/SavedRecipes.css';
+import '../assets/styles/main.css';
 
 const API_URL = "https://www.themealdb.com/api/json/v1/1/";
 
@@ -9,8 +9,12 @@ const Search = () => {
   const [searchValue, setSearchValue] = useState('');
   const [options, setOptions] = useState([]);
   const [showInput, setShowInput] = useState(true);
-
   const [savedMeals, setSavedMeals] = useState([]);
+
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem('savedMeals')) || [];
+    setSavedMeals(saved);
+  }, []);
 
   const navigate = useNavigate();
 

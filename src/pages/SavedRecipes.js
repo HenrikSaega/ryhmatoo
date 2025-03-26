@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import '../assets/styles/SavedRecipes.css'
+import '../assets/styles/main.css'
 
 const SavedRecipes = () => {
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ const SavedRecipes = () => {
     <div className='main'>
       <div className='btn-container'>
         <button className='btn' onClick={() => navigate('/')}>🏠 Home</button>
-        <button className='btn mx-3' onClick={() => navigate('/search')}>🔍 Search more</button>
+        <button className='btn mx-3' onClick={() => navigate('/search')}>🔍 Search Meals</button>
       </div>
       {/* Main Content - Either Show Meal Details or Message */}
       <div className='row-container'>
