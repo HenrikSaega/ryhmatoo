@@ -15,6 +15,7 @@ div.saved-meals {
     overflow-y: auto; 
     position: sticky;
     top: 20px;
+    color:#fff8d6;
 }
 
 div.saved-meals h3{
