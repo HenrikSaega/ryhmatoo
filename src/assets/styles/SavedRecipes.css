@@ -59,6 +59,7 @@
 }
 
 .meal-view .btn:hover{
+    color: #211f1f;
     background-color: #a4d0a4;
 }
 
@@ -100,6 +101,34 @@
 .btn-container .btn:hover{
     color: #c7b7a3;
     background-color:#561c24;
+}
+
+.search-btn {
+    background-color: #007bff;
+    color: #e8d8c4;
+    border: none;
+    padding: 10px 20px;
+    font-size: x-large;
+    border-radius: 5px;
+}
+
+.search-btn:hover {
+    background-color: #0056b3;
+    cursor: pointer;
+}
+
+.random-btn {
+    background-color: #ff9800;
+    color: #e8d8c4;
+    border: none;
+    padding: 10px 20px;
+    font-size: x-large;
+    border-radius: 5px;
+}
+
+.random-btn:hover {
+    background-color: #e68900;
+    cursor: pointer;
 }
 
 .list{

@@ -51,7 +51,6 @@ const SavedRecipes = () => {
                 </div>
               </div>
 
-
               <div className='row'>
                 <div className='col-6'>
                   <img
