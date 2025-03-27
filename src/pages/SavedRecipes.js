@@ -25,6 +25,7 @@ const SavedRecipes = () => {
       alert(`${meal.strMeal} saved!`);
     } else {
       alert(`${meal.strMeal} is already saved.`);
+
     }
   };
 
@@ -107,11 +108,13 @@ const SavedRecipes = () => {
                   <h2>{meal.strMeal}</h2>
                 </div>
                 <div className='col-5 text-end'>
-                  <button
-                    onClick={() => handleRemoveMeal(meal.idMeal)}
-                    className='btn btn-delete'>
-                    🗑️
-                  </button>
+                  {savedMeals.some((savedmeal) => savedmeal.idMeal === meal.idMeal) && (
+                    <button
+                      onClick={() => handleRemoveMeal(meal.idMeal)}
+                      className='btn btn-delete'>
+                      🗑️ Remove
+                    </button>
+                  )}
                   <button
                     onClick={downloadAsPDF}
                     className='btn mx-1'>
