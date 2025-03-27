@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { fetchMeals } from '../service/Api';
-import '../assets/styles/main.css'
 
 const Meals = () => {
   const navigate = useNavigate();

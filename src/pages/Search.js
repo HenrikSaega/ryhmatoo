@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../assets/styles/main.css';
 
 const API_URL = "https://www.themealdb.com/api/json/v1/1/";
 
