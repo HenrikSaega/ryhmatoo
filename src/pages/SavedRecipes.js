@@ -112,13 +112,12 @@ const SavedRecipes = () => {
                     <button
                       onClick={() => handleRemoveMeal(meal.idMeal)}
                       className='btn btn-delete'>
-                      🗑️ Remove
-                    </button>
+                      🗑️                    </button>
                   )}
                   <button
                     onClick={downloadAsPDF}
                     className='btn mx-1'>
-                    ⬇️ PDF
+                    ⬇️
                   </button>
                   <button
                     onClick={handleSaveMeal}
