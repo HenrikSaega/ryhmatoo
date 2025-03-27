@@ -1,29 +1,26 @@
 import { useNavigate } from "react-router-dom"
 
-const Home = () =>  {
-    const navigate = useNavigate();
-    return(
-        <div style={{ textAlign: 'center', marginTop: '50px' }}>
-        <h1>Welcome to Meal Explorer 🍽️</h1>
-        
-        <div style={{ marginTop: '30px' }}>
-          <button 
-            onClick={() => navigate('/search')} 
-            style={{ marginRight: '20px', padding: '10px 20px', fontSize: '16px' }}
-          >
-            Search Recipes
-          </button>
-  
-          <button 
-            onClick={() => navigate('/saved')} 
-            style={{ padding: '10px 20px', fontSize: '16px' }}
-          >
-            Saved Recipes
-          </button>
+const Home = () => {
+  const navigate = useNavigate();
+  return (
+    <div className="main">
+      <div className="home">
+        <div className="title-container">
+          <h1 className="title col-md-12">GET-Recipe</h1>
+        </div>
+        <div className="row justify-content-center">
+          <div className="buttons-container col-12 col-md-8">
+            <button className="btn button mx-2 mt-5" onClick={() => navigate('/search')}>
+              Search Recipes
+            </button>
+            <button className="btn button mx-3 mt-5" onClick={() => navigate('/saved')}>
+              Saved Recipes
+            </button>
+          </div>
         </div>
       </div>
-    
-    )
+    </div>
+  )
 }
 
 export default Home

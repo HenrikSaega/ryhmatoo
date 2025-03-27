@@ -92,97 +92,82 @@ const SavedRecipes = () => {
   };
 
   return (
-    <div style={{ display: 'flex', padding: '20px', gap: '30px' }}>
+    <div className='main'>
+      <div className='btn-container'>
+        <button className='btn' onClick={() => navigate('/')}>🏠 Home</button>
+        <button className='btn mx-3' onClick={() => navigate('/search')}>🔍 Search Meals</button>
+      </div>
       {/* Main Content - Either Show Meal Details or Message */}
-      <div style={{ flex: 3 }}>
-        <div>
-          <button onClick={() => navigate('/')}>Go back/Home</button>
-          <button onClick={() => navigate('/search')}>Search more</button>
-          {savedMeals.length > 0 && (
-            <button onClick={downloadAsPDF} style={{ marginBottom: '20px' }}>
-              Download Recipes as PDF
-            </button>
+      <div className='row-container'>
+        <div className='meal-view card col-md-11'>
+          {meal ? (
+            <>
+              <div className='row'>
+                <div className='col-9'>
+                  <h2>{meal.strMeal}</h2>
+                </div>
+                <div className='col-3 text-end'>
+                  <button
+                    onClick={handleSaveMeal}
+                    className='btn'>
+                    💾 Save Meal
+                  </button>
+                </div>
+              </div>
+
+              <div className='row'>
+                <div className='col-6'>
+                  <img
+                    src={meal.strMealThumb}
+                    alt={meal.strMeal}
+                    className='meal-img img-fluid'
+                  />
+                  <p><strong>Category:</strong> {meal.strCategory}</p>
+                  <p><strong>Area:</strong> {meal.strArea}</p>
+
+                </div>
+                <div className='col-6'>
+                  <h4>Ingredients:</h4>
+                  <ul>
+                    {Array.from({ length: 20 }).map((_, i) => {
+                      const ingredient = meal[`strIngredient${i + 1}`];
+                      const measure = meal[`strMeasure${i + 1}`];
+                      return ingredient ? <li key={i}>{measure} {ingredient}</li> : null;
+                    })}
+                  </ul>
+                </div>
+              </div>
+
+              <h4>Instructions:</h4>
+              <p>{meal.strInstructions}</p>
+
+            </>
+          ) : (
+            <h2>Select a saved meal from the list.</h2>
           )}
         </div>
-
-        {meal ? (
-          <>
-            <h2>{meal.strMeal}</h2>
-
-            <img
-              src={meal.strMealThumb}
-              alt={meal.strMeal}
-              style={{ width: '300px', borderRadius: '10px' }}
-            />
-
-            <p><strong>Category:</strong> {meal.strCategory}</p>
-            <p><strong>Area:</strong> {meal.strArea}</p>
-
-            <h4>Ingredients:</h4>
-            <ul>
-              {Array.from({ length: 20 }).map((_, i) => {
-                const ingredient = meal[`strIngredient${i + 1}`];
-                const measure = meal[`strMeasure${i + 1}`];
-                return ingredient ? <li key={i}>{measure} {ingredient}</li> : null;
-              })}
+        {/* Sidebar: Always Show Saved Meals */}
+        <div className='card saved-meals col-md-3'>
+          <h3>Saved Meals</h3>
+          {savedMeals.length === 0 ? (
+            <p>No saved meals</p>
+          ) : (
+            <ul className='list'>
+              {savedMeals.map((meal) => (
+                <li key={meal.idMeal} className='list-items'
+                  onClick={() => navigate('/saved', { state: { meal } })} // Navigate to show details
+                >
+                  <img
+                    className='list-item'
+                    src={meal.strMealThumb}
+                    alt={meal.strMeal}
+                  />
+                  <span>{meal.strMeal}</span>
+                </li>
+              ))}
             </ul>
-
-            <h4>Instructions:</h4>
-            <p>{meal.strInstructions}</p>
-
-            <button
-              onClick={handleSaveMeal}
-              style={{
-                marginTop: '10px',
-                padding: '10px 20px',
-                backgroundColor: 'green',
-                color: 'white',
-                border: 'none',
-                borderRadius: '5px'
-              }}>
-              Save Meal
-            </button>
-            <button 
-        onClick={() => handleRemoveMeal(meal.idMeal)}
-        style={{ padding: '5px 10px', backgroundColor: 'red', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}
-      >
-        Remove
-      </button>
-          </>
-        ) : (
-          <h2>Select a saved meal from the list.</h2>
-        )}
-      </div>
-
-      {/* Sidebar: Always Show Saved Meals */}
-      <div style={{
-        flex: 1,
-        borderLeft: '2px solid #ccc',
-        paddingLeft: '20px',
-        height: '100vh',
-        overflowY: 'auto',
-        position: 'sticky',
-        top: '20px'
-      }}>
-        <h3>Saved Meals</h3>
-        {savedMeals.length === 0 ? (
-          <p>No saved meals</p>
-        ) : (
-       <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
-  {savedMeals.map((meal) => (
-    <li key={meal.idMeal} style={{ marginBottom: '10px', display: 'flex', alignItems: 'center' }}>
-      <img
-        src={meal.strMealThumb}
-        alt={meal.strMeal}
-        style={{ width: '50px', borderRadius: '5px', marginRight: '10px', cursor: 'pointer' }}
-        onClick={() => navigate('/saved', { state: { meal } })}
-      />
-      <span style={{ flexGrow: 1 }}>{meal.strMeal}</span>
-  
-    </li>
-  ))}
-</ul>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );
