@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { fetchMeals } from '../service/Api';
+import '../assets/styles/main.css'
 
 const Meals = () => {
   const navigate = useNavigate();
@@ -17,48 +18,33 @@ const Meals = () => {
       }
     };
     getMeals();
-
     const saved = JSON.parse(localStorage.getItem('savedMeals')) || [];
     setSavedMeals(saved);
   }, [searchType, searchValue]);
 
-  const handleSaveMeal = (meal) => {
-    const saved = JSON.parse(localStorage.getItem('savedMeals')) || [];
-    const isAlreadySaved = saved.find((m) => m.idMeal === meal.idMeal);
-    if (!isAlreadySaved) {
-      const updated = [...saved, meal];
-      localStorage.setItem('savedMeals', JSON.stringify(updated));
-      setSavedMeals(updated); // Update sidebar list
-      alert(`${meal.strMeal} saved!`);
-    } else {
-      alert(`${meal.strMeal} is already saved.`);
-    }
-  };
-
   return (
-    <div style={{ padding: '20px' }}>
-      <div>
-        <button onClick={() => navigate('/')}>Go back/Home</button>
-        <button onClick={() => navigate('/search')}>Search</button>
-        <button onClick={() => navigate('/saved')}>Saved recipes</button>
+    <div className='main'>
+      <div className='btn-container'>
+        <button className='btn' onClick={() => navigate('/')}>🏠 Home</button>
+        <button className='btn mx-3' onClick={() => navigate('/search')}>🔍 Search Meals</button>
+        {/* <button className='btn' onClick={() => navigate('/saved')}>💾 Saved Meals</button> */}
       </div>
 
-      <h2>Meals</h2>
 
-      <div style={{ display: 'flex', gap: '30px' }}>
-        {/* Main meal results */}
-        <div style={{ flex: 3 }}>
+      <div className='row-container'>
+        <div className='meal-view card col-md-11'>
+          <h2>Meals</h2>
           {meals.length === 0 ? (
             <p>No meals found.</p>
           ) : (
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+            <div className='meal-grid'>
               {meals.map((meal) => (
-                <div key={meal.idMeal} style={{ width: '200px', textAlign: 'center' }}>
+                <div key={meal.idMeal} className='meal-item'>
                   <img
+                    className='meal-img'
                     src={meal.strMealThumb}
                     alt={meal.strMeal}
-                    style={{ width: '100%', borderRadius: '10px', cursor: 'pointer' }}
-                    onClick={() => handleSaveMeal(meal)}
+                    onClick={() => navigate('/saved', { state: { meal } })} // Navigate to detailed view
                   />
                   <h4>{meal.strMeal}</h4>
                 </div>
@@ -67,19 +53,21 @@ const Meals = () => {
           )}
         </div>
 
-        {/* Sidebar: Saved meals */}
-        <div style={{ flex: 1, borderLeft: '1px solid #ccc', paddingLeft: '20px' }}>
+        {/* Sidebar: Always Show Saved Meals */}
+        <div className='card saved-meals col-md-3'>
           <h3>Saved Meals</h3>
           {savedMeals.length === 0 ? (
             <p>No saved meals</p>
           ) : (
-            <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
+            <ul className='list'>
               {savedMeals.map((meal) => (
-                <li key={meal.idMeal} style={{ marginBottom: '10px' }}>
+                <li key={meal.idMeal} className='list-items'
+                  onClick={() => navigate('/saved', { state: { meal } })} // Navigate to show details
+                >
                   <img
+                    className='list-item'
                     src={meal.strMealThumb}
                     alt={meal.strMeal}
-                    style={{ width: '50px', borderRadius: '5px', marginRight: '10px', verticalAlign: 'middle' }}
                   />
                   <span>{meal.strMeal}</span>
                 </li>

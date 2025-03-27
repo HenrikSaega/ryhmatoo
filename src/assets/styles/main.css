@@ -1,0 +1,151 @@
+.main {
+    padding: 20px;
+    background: linear-gradient(rgba(0, 0, 0, 0.4)),no-repeat center center fixed;
+    background-image: url(../img/background.png);
+    background-size: cover;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+.row-container {
+    grid-template-columns: 75% 25%;
+    display: grid;
+    box-sizing: border-box;
+    padding-top:20px;
+}
+
+.row-container .meal-view{
+    padding:20px;
+    background: linear-gradient(rgba(0, 0, 0, 0.7));
+    border: 2px solid black;
+    overflow-y: auto;
+    max-height: calc(100vh - 100px);
+    color:#fff8d6;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.meal-view h4, p, li{
+    color:#fff8d6;
+}
+
+.meal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.meal-item {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 10px;
+    transition: transform 0.3s ease;
+}
+
+.meal-item:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.meal-view .btn{
+    color: #211f1f;
+    background-color: #617a55;
+    font-size:x-large;
+    font-weight: 700;
+    padding: 10px 20px;
+    border: none;
+}
+
+.meal-view .btn:hover{
+    color: #211f1f;
+    background-color: #a4d0a4;
+}
+
+.meal-view h2{
+    color: #f7e1ae;
+}
+
+.meal-img{
+    width: 300px;
+    border-radius:10px;
+}
+
+.row-container .saved-meals {
+    padding:20px;
+    align-items: center;
+    background: linear-gradient(rgba(0, 0, 0, 0.7));
+    border: 2px solid black;
+    width:100%;
+    border-radius: 10px;
+    overflow-y: auto;
+    max-height: calc(100vh - 100px);
+    position: sticky;
+    color:#fff8d6;
+    box-sizing: border-box;
+}
+
+.saved-meals h3{
+    color: #f7e1ae;
+}
+
+.btn-container .btn {
+    color: #e8d8c4;
+    background-color: #6d2932;
+    font-size: large;
+    padding: 10px 20px;
+    border: none;
+}
+
+.btn-container .btn:hover{
+    color: #c7b7a3;
+    background-color:#561c24;
+}
+
+.search-btn {
+    background-color: #007bff;
+    color: #e8d8c4;
+    border: none;
+    padding: 10px 20px;
+    font-size: x-large;
+    border-radius: 5px;
+}
+
+.search-btn:hover {
+    background-color: #0056b3;
+    cursor: pointer;
+}
+
+.random-btn {
+    background-color: #ff9800;
+    color: #e8d8c4;
+    border: none;
+    padding: 10px 20px;
+    font-size: x-large;
+    border-radius: 5px;
+}
+
+.random-btn:hover {
+    background-color: #e68900;
+    cursor: pointer;
+}
+
+.list{
+    list-style: none;
+    padding: 0;
+}
+
+.list-items{
+    margin-bottom:10px;
+    display: flex;
+    align-items:center;
+    cursor:pointer;
+}
+
+.list-item{
+    width:50px;
+    border-radius:5px;
+    margin-right:10px;
+}
