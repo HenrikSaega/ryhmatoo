@@ -1,10 +1,14 @@
-.main {
-    padding: 20px;
-    background: linear-gradient(rgba(0, 0, 0, 0.4)), url(../img/background.png) no-repeat center center fixed;
+.background-image {
+    background: linear-gradient(rgba(0, 0, 0, 0.4)), no-repeat center center fixed;
+    background-image: url('../img/background.png');
     background-size: cover;
-    min-height: 100vh;
-    box-sizing: border-box;
 }
+
+.home, .main {
+    min-height: 100vh;
+    padding: 20px;
+}
+
 
 .row-container {
     grid-template-columns: 75% 25%;

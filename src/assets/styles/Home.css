@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sue+Ellen+Francisco&display=swap');
 .home {
     position: relative;
     min-height: 100vh;
@@ -5,14 +7,13 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient(rgba(0, 0, 0, 0.4)), url(../img/background.png) no-repeat center center fixed;
+    background: linear-gradient(rgba(0, 0, 0, 0.4)), no-repeat center center fixed;
+    background-image:url('../img/background.png');
     background-size: cover;
     background-color: #f8f9fa;
     padding: 20px;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Sue+Ellen+Francisco&display=swap');
 
 .title-container {
     text-align: center;
