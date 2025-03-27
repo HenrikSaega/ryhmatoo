@@ -48,11 +48,12 @@
 
 .row-container .meal-view{
     padding:20px;
-    background: linear-gradient(rgba(0, 0, 0, 0.7));
+    background: linear-gradient(rgba(0, 0, 0, ));
     border: 2px solid black;
     overflow-y: auto;
     max-height: calc(100vh - 100px);
     color:#fff8d6;
+    background-color: #211f1f;
     border-radius: 10px;
     box-sizing: border-box;
 }
@@ -115,7 +116,7 @@
     overflow-y: auto;
     max-height: calc(100vh - 100px);
     position: sticky;
-    color:#fff8d6;
+    /*color:#fff8d6;*/
     box-sizing: border-box;
 }
 
