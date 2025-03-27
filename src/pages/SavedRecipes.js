@@ -108,7 +108,7 @@ const SavedRecipes = () => {
                 </div>
                 <div className='col-3 text-end'>
                 <button
-                    onClick={handleRemoveMeal}
+                    onClick={()=>handleRemoveMeal(meal.idMeal)}
                     className='btn'>
                     💾 Remove Meal
                   </button>
