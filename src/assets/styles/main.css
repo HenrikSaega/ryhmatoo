@@ -1,10 +1,44 @@
 .main {
+    height: 100vh;
     padding: 20px;
-    background: linear-gradient(rgba(0, 0, 0, 0.4)),no-repeat center center fixed;
+    background: -webkit-linear-gradient(rgba(0, 0, 0, 0.8)), no-repeat center center fixed;
     background-image: url(../img/background.png);
     background-size: cover;
     min-height: 100vh;
     box-sizing: border-box;
+    overflow: hidden;
+}
+
+.home {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.title-container {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+    margin-top: 20px;
+    width: 50%;
+}
+
+.title {
+    font-size: 4rem;
+    color: #561c24;
+    background-color: #617a55;
+    border-radius: 2rem;
+    padding: 20px;
+    font-family: "Sue Ellen Francisco", cursive;
+    font-weight: bold;
+    border-bottom: #4f6e40 solid 1rem;
 }
 
 .home {
@@ -48,18 +82,21 @@
 
 .row-container .meal-view{
     padding:20px;
-    background: linear-gradient(rgba(0, 0, 0, ));
+    background: -webkit-linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8));
     border: 2px solid black;
     overflow-y: auto;
-    max-height: calc(100vh - 100px);
-    color:#fff8d6;
-    background-color: #211f1f;
+    max-height: calc(100vh - 100px);/* 
+    color:#fff8d6; */
     border-radius: 10px;
     box-sizing: border-box;
 }
 
-.meal-view h4, p, li{
+.meal-view h4, p, li, label{
     color:#fff8d6;
+}
+
+.meal-view h2{
+    color: #f7e1ae;
 }
 
 .meal-grid {
@@ -72,7 +109,6 @@
 
 .meal-item {
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
     padding: 10px;
     transition: transform 0.3s ease;
@@ -97,10 +133,6 @@
     background-color: #a4d0a4;
 }
 
-.meal-view h2{
-    color: #f7e1ae;
-}
-
 .meal-img{
     width: 300px;
     border-radius:10px;
@@ -109,14 +141,14 @@
 .row-container .saved-meals {
     padding:20px;
     align-items: center;
-    background: linear-gradient(rgba(0, 0, 0, 0.7));
+    background: -webkit-linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8));
     border: 2px solid black;
     width:100%;
     border-radius: 10px;
     overflow-y: auto;
     max-height: calc(100vh - 100px);
     position: sticky;
-    /*color:#fff8d6;*/
+    color:#fff8d6;
     box-sizing: border-box;
 }
 
