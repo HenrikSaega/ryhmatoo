@@ -44,9 +44,10 @@
 .row-container {
     grid-template-columns: 75% 25%;
     display: grid;
+    padding-top: 20px;
+    background: linear-gradient(rgba(0, 0, 0, 0.7));
     box-sizing: border-box;
-    padding-top:20px;
-}
+  }
 
 .row-container .meal-view{
     padding:20px;
