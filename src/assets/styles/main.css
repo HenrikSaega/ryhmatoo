@@ -53,8 +53,7 @@
     background: -webkit-linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8));
     border: 2px solid black;
     overflow-y: auto;
-    max-height: calc(100vh - 100px);/* 
-    color:#fff8d6; */
+    max-height: calc(100vh - 100px);
     border-radius: 10px;
     box-sizing: border-box;
 }
