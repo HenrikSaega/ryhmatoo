@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import '../assets/styles/main.css'
 
 const SavedRecipes = () => {
   const navigate = useNavigate();
