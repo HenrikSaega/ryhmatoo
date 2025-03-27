@@ -204,6 +204,11 @@
     cursor: pointer;
 }
 
+.yt-link {
+    color: #6e8962;
+    font-weight: bolder;
+}
+
 .list{
     list-style: none;
     padding: 0;

@@ -118,7 +118,7 @@ const SavedRecipes = () => {
                   <button
                     onClick={downloadAsPDF}
                     className='btn mx-1'>
-                    ⬇️
+                    ⬇️ .pdf
                   </button>
                   <button
                     onClick={handleSaveMeal}
@@ -135,9 +135,10 @@ const SavedRecipes = () => {
                     alt={meal.strMeal}
                     className='meal-img img-fluid'
                   />
-                  <p><strong>Category:</strong> {meal.strCategory}</p>
-                  <p><strong>Area:</strong> {meal.strArea}</p>
-
+                  <p><strong>Area: </strong>{meal.strArea} |<strong> Category:</strong> {meal.strCategory}</p>
+                  <p>
+                    <a href={meal.strYoutube} target='_blank' className='yt-link'>Link to video</a>
+                  </p>
                 </div>
                 <div className='col-6'>
                   <h4>Ingredients:</h4>
