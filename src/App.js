@@ -5,6 +5,7 @@ import Meals from './pages/Meals';
 import Home from './pages/Home';
 import SavedRecipes from './pages/SavedRecipes';
 import './assets/styles/App.css'
+import './assets/styles/main.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/styles/main.css'
 

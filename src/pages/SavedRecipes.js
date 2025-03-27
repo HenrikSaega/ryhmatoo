@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import jsPDF from 'jspdf';
-import '../assets/styles/main.css'
+
+
 
 const SavedRecipes = () => {
   const navigate = useNavigate();
@@ -107,10 +108,20 @@ const SavedRecipes = () => {
                   <h2>{meal.strMeal}</h2>
                 </div>
                 <div className='col-3 text-end'>
+                <button
+                    onClick={()=>handleRemoveMeal(meal.idMeal)}
+                    className='btn'>
+                    💾 Remove Meal
+                  </button>
                   <button
                     onClick={handleSaveMeal}
                     className='btn'>
                     💾 Save Meal
+                  </button>
+                  <button
+                    onClick={downloadAsPDF}
+                    className='btn'>
+                    💾 Download PDF
                   </button>
                 </div>
               </div>
