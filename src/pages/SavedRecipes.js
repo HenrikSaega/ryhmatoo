@@ -109,17 +109,20 @@ const SavedRecipes = () => {
                 </div>
                 <div className='col-5 text-end'>
                   {savedMeals.some((savedmeal) => savedmeal.idMeal === meal.idMeal) && (
-                    <button
-                      onClick={() => handleRemoveMeal(meal.idMeal)}
-                      className='btn btn-delete'>
-                      🗑️
-                    </button>
+                    <dvi>
+                      <button
+                        onClick={() => handleRemoveMeal(meal.idMeal)}
+                        className='btn btn-delete'>
+                        🗑️
+                      </button>
+                      <button
+                        onClick={downloadAsPDF}
+                        className='btn mx-1'>
+                        ⬇️ .pdf
+                      </button>
+                    </dvi>
                   )}
-                  <button
-                    onClick={downloadAsPDF}
-                    className='btn mx-1'>
-                    ⬇️ .pdf
-                  </button>
+
                   <button
                     onClick={handleSaveMeal}
                     className='btn'>
