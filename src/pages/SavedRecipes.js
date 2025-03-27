@@ -33,7 +33,7 @@ const SavedRecipes = () => {
     setSavedMeals(updatedMeals);
     localStorage.setItem('savedMeals', JSON.stringify(updatedMeals));
   };
-  
+
   const downloadAsPDF = () => {
     const doc = new jsPDF();
     let y = 10;
@@ -103,24 +103,24 @@ const SavedRecipes = () => {
           {meal ? (
             <>
               <div className='row'>
-                <div className='col-9'>
+                <div className='col-7'>
                   <h2>{meal.strMeal}</h2>
                 </div>
-                <div className='col-3 text-end'>
-                <button
-                    onClick={handleRemoveMeal}
-                    className='btn'>
-                    💾 Remove Meal
+                <div className='col-5 text-end'>
+                  <button
+                    onClick={() => handleRemoveMeal(meal.idMeal)}
+                    className='btn btn-delete'>
+                    🗑️
+                  </button>
+                  <button
+                    onClick={downloadAsPDF}
+                    className='btn mx-1'>
+                    ⬇️ PDF
                   </button>
                   <button
                     onClick={handleSaveMeal}
                     className='btn'>
                     💾 Save Meal
-                  </button>
-                  <button
-                    onClick={downloadAsPDF}
-                    className='btn'>
-                    💾 Download PDF
                   </button>
                 </div>
               </div>

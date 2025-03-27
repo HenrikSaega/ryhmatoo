@@ -45,7 +45,6 @@
     grid-template-columns: 75% 25%;
     display: grid;
     padding-top: 20px;
-    background: linear-gradient(rgba(0, 0, 0, 0.7));
     box-sizing: border-box;
   }
 
@@ -91,6 +90,22 @@
 .meal-view .btn{
     color: #211f1f;
     background-color: #617a55;
+    font-size:x-large;
+    font-weight: 700;
+    padding: 10px 20px;
+    border: none;
+}
+
+.meal-view .btn-delete {
+    background-color: #880c08;
+    font-size:x-large;
+    font-weight: 700;
+    padding: 10px 20px;
+    border: none;
+}
+
+.meal-view .btn-delete:hover {
+    background-color: #d7514c !important;
     font-size:x-large;
     font-weight: 700;
     padding: 10px 20px;
