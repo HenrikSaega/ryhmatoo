@@ -140,7 +140,7 @@ const SavedRecipes = () => {
                   />
                   <p><strong>Area: </strong>{meal.strArea} |<strong> Category:</strong> {meal.strCategory}</p>
                   <p>
-                    <a href={meal.strYoutube} target='_blank' className='yt-link'>Link to video</a>
+                    <a href={meal.strYoutube} target='_blank' rel="noreferrer" className='yt-link'>Link to video</a>
                   </p>
                 </div>
                 <div className='col-6'>
