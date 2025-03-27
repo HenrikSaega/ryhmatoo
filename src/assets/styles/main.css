@@ -41,44 +41,12 @@
     border-bottom: #4f6e40 solid 1rem;
 }
 
-.home {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-}
-
-.title-container {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    text-align: center;
-    margin-top: 20px;
-    width: 50%;
-}
-
-.title {
-    font-size: 4rem;
-    color: #561c24;
-    background-color: #617a55;
-    border-radius: 2rem;
-    padding: 20px;
-    font-family: "Sue Ellen Francisco", cursive;
-    font-weight: bold;
-    border-bottom: #4f6e40 solid 1rem;
-}
-
 .row-container {
     grid-template-columns: 75% 25%;
     display: grid;
+    padding-top: 20px;
     box-sizing: border-box;
-    padding-top:20px;
-}
+  }
 
 .row-container .meal-view{
     padding:20px;
@@ -128,6 +96,22 @@
     border: none;
 }
 
+.meal-view .btn-delete {
+    background-color: #880c08;
+    font-size:x-large;
+    font-weight: 700;
+    padding: 10px 20px;
+    border: none;
+}
+
+.meal-view .btn-delete:hover {
+    background-color: #d7514c !important;
+    font-size:x-large;
+    font-weight: 700;
+    padding: 10px 20px;
+    border: none;
+}
+
 .meal-view .btn:hover{
     color: #211f1f;
     background-color: #a4d0a4;
@@ -148,7 +132,7 @@
     overflow-y: auto;
     max-height: calc(100vh - 100px);
     position: sticky;
-    color:#fff8d6;
+    /* color:#fff8d6; */
     box-sizing: border-box;
 }
 
